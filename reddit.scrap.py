@@ -2,9 +2,8 @@
 # CSCI529: GROUP PROJECT
 
 import praw
-import pandas as pd
 import datetime as dt
-
+import csv
 
 # Variable that accesses REDDIT
 reddit = praw.Reddit(client_id='qzAog3zZ9acCgQ',
@@ -14,10 +13,10 @@ reddit = praw.Reddit(client_id='qzAog3zZ9acCgQ',
                      PASSWORD='csci.529.covid')
 
 # What time period to scrape from Reddit
-ALL_TIME = 0
-MONTH = 1
-WEEK = 2
-DAY = 3
+ALL_TIME = 'all'
+MONTH = 'month'
+WEEK = 'week'
+DAY = 'day'
 
 
 # changes created UNIX time to standard
@@ -25,32 +24,46 @@ def get_date(created):
     return dt.datetime.fromtimestamp(created)
 
 
-def scrape(subreddit, time_period):
-    # Holds a post's information score = likes, content= text in the post
-    post_dict = {'title': [], 'score': [], 'num_comm': [], 'created': [], 'content': []}
-
+# Gets posts from a certain time period, the sub reddit as well as puts it in a .tsv
+def scrape(filename, subreddit, time_period):
     sub = reddit.subreddit(subreddit)  # Only accesses the specifed subreddit
-    top_corona = sub.top(limit=1000)  # Retrieves the top 100 posts of ALL TIME in the topic
-    # top_corona = corona.top(limit=x)  # gives you the top x posts of ALL TIME, limit is 1000
 
-    # Turns the data into a table.
-    post_data = pd.DataFrame(post_dict)
+    # top_subreddit = corona.top(limit=x)  # gives you the top x posts of ALL TIME, limit is 1000
+    top_subreddit = sub.top(limit=1000, time_filter=time_period)
 
-    # Stores the data into a .csv file.
-    # Do not have to remove .csv file. This line will overwrite the previous one will not add on to it.
-    post_data.to_tsv('data.tsv', index=False)
+    file_location = 'data/'+filename
+    table = open(file_location, 'a', encoding='utf-8')
+    writer = csv.writer(table, delimiter='\t')
+    writer.writerow(['title', 'score', 'num_comm', 'created', 'content'])
 
-    # Assigns the information from the post to the according section
-    for post in top_corona:
-        post_dict['title'].append(post.title)
-        post_dict['score'].append(post.score)
-        post_dict['num_comm'].append(post.num_comments)
-        post_dict['created'].append(get_date(post.created))
-        post_dict['content'].append(post.selftext)
+    # Writes the information into the .tsv
+    for post in top_subreddit:
+        row = []
+        row.append(post.title)
+        row.append(post.score)
+        row.append(post.num_comments)
+        row.append(get_date(post.created))
+        row.append(post.selftext)
+        writer.writerow(row)
+
+    table.close()
+    # WARNING: Does not replace file at destination only adds on to it.
+    # If you are going to re run this function and do not want previous data
+    # delete the file you are trying to create before running this.
+
+
+def get_data(subreddit):
+    scrape(subreddit+'_all.tsv', subreddit, ALL_TIME)
+    scrape(subreddit+'_month.tsv', subreddit, MONTH)
+    scrape(subreddit+'_week.tsv', subreddit, WEEK)
+    scrape(subreddit+'_day.tsv', subreddit, DAY)
 
 
 def main():
-    scrape("Coronavirus", )
+    get_data('coronavirus')
+    get_data('news')
+    get_data('worldnews')
+    get_data('science')
 
 
 if __name__ == '__main__':
