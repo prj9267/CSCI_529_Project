@@ -39,7 +39,7 @@ def parse_data(sub_reddit_name, sub_reddit_dict):
     sub_reddit_dict["week"] = dict()
 
     for file_name in file_list:
-        file = open("data/" + file_name, encoding="utf8")
+        file = open("data/original/" + file_name, encoding="utf8")
         cols = file.readline()
 
         line = file.readline()
