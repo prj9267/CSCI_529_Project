@@ -72,7 +72,7 @@ def list_post_sources(entry):
             sources.append(content[start_index:end_index])
             content = content[end_index + 1:]
     else:
-        entry.pop()
+        entry.pop()  # Removes the blank entry for content and replaces it with none then fills sources with none
         entry.append('None')
         entry.append('None')
         return entry
@@ -94,6 +94,7 @@ def list_time_frame_sources(subreddit, timeframe):
                 writer.writerow(list_post_sources(entry))
 
     new.close()
+
 
 # Goes through all the subreddits and adds a source attribute to the entry
 def list_subreddit_sources(subreddit):
