@@ -391,7 +391,7 @@ def graph_covid_source_engagement(data_dict, engagement_type):
 
 
 #   Graphs a time series visualization of the average engagement (upvotes or comments) change through each day of the week.
-#   Graphs both average engagement for covid vs non-covid posts
+#   Graphs both average engagement for covid vs non-covid posts.
 
 
 def graph_time_series_engagement_daily(sub_reddit_name, sub_reddit_dict, engagement_type):
@@ -561,6 +561,264 @@ def graph_time_series_engagement_daily(sub_reddit_name, sub_reddit_dict, engagem
     fig.show()
 
 
+#   Graphs a time series visualization of the average engagement(upvotes or comments) change through each month of the year.
+#   Graphs both average engagement for covid vs non-covid posts.
+
+
+def graph_time_series_engagement_monthly(sub_reddit_name, sub_reddit_dict, engagement_type):
+    tracker = dict()
+
+    year = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    year_covid_engagement_values = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    year_covid_post_count = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    year_non_covid_engagement_values = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    year_non_covid_post_count = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+    for time_key in sub_reddit_dict.keys():
+        for post_id in sub_reddit_dict[time_key].keys():
+            post = sub_reddit_dict[time_key][post_id]
+
+            if post.title not in tracker.keys():
+                tracker[post.title] = 1
+
+                date_data = post.created.strip().split(" ")[0].split("-")
+                date = datetime.datetime(int(date_data[0]), int(date_data[1]), int(date_data[2]))
+                month = date.strftime("%B").strip()
+
+                if month == "January":
+                    if post.relevant:
+                        if engagement_type == "score":
+                            year_covid_engagement_values[0] += int(post.score)
+                            year_covid_post_count[0] += 1
+                        else:
+                            year_covid_engagement_values[0] += int(post.num_comm)
+                            year_covid_post_count[0] += 1
+                    else:
+                        if engagement_type == "score":
+                            year_non_covid_engagement_values[0] += int(post.score)
+                            year_non_covid_post_count[0] += 1
+                        else:
+                            year_non_covid_engagement_values[0] += int(post.num_comm)
+                            year_non_covid_post_count[0] += 1
+                elif month == "February":
+                    if post.relevant:
+                        if engagement_type == "score":
+                            year_covid_engagement_values[1] += int(post.score)
+                            year_covid_post_count[1] += 1
+                        else:
+                            year_covid_engagement_values[1] += int(post.num_comm)
+                            year_covid_post_count[1] += 1
+                    else:
+                        if engagement_type == "score":
+                            year_non_covid_engagement_values[1] += int(post.score)
+                            year_non_covid_post_count[1] += 1
+                        else:
+                            year_non_covid_engagement_values[1] += int(post.num_comm)
+                            year_non_covid_post_count[1] += 1
+                elif month == "March":
+                    if post.relevant:
+                        if engagement_type == "score":
+                            year_covid_engagement_values[2] += int(post.score)
+                            year_covid_post_count[2] += 1
+                        else:
+                            year_covid_engagement_values[2] += int(post.num_comm)
+                            year_covid_post_count[2] += 1
+                    else:
+                        if engagement_type == "score":
+                            year_non_covid_engagement_values[2] += int(post.score)
+                            year_non_covid_post_count[2] += 1
+                        else:
+                            year_non_covid_engagement_values[2] += int(post.num_comm)
+                            year_non_covid_post_count[2] += 1
+                elif month == "April":
+                    if post.relevant:
+                        if engagement_type == "score":
+                            year_covid_engagement_values[3] += int(post.score)
+                            year_covid_post_count[3] += 1
+                        else:
+                            year_covid_engagement_values[3] += int(post.num_comm)
+                            year_covid_post_count[3] += 1
+                    else:
+                        if engagement_type == "score":
+                            year_non_covid_engagement_values[3] += int(post.score)
+                            year_non_covid_post_count[3] += 1
+                        else:
+                            year_non_covid_engagement_values[3] += int(post.num_comm)
+                            year_non_covid_post_count[3] += 1
+                elif month == "May":
+                    if post.relevant:
+                        if engagement_type == "score":
+                            year_covid_engagement_values[4] += int(post.score)
+                            year_covid_post_count[4] += 1
+                        else:
+                            year_covid_engagement_values[4] += int(post.num_comm)
+                            year_covid_post_count[4] += 1
+                    else:
+                        if engagement_type == "score":
+                            year_non_covid_engagement_values[4] += int(post.score)
+                            year_non_covid_post_count[4] += 1
+                        else:
+                            year_non_covid_engagement_values[4] += int(post.num_comm)
+                            year_non_covid_post_count[4] += 1
+                elif month == "June":
+                    if post.relevant:
+                        if engagement_type == "score":
+                            year_covid_engagement_values[5] += int(post.score)
+                            year_covid_post_count[5] += 1
+                        else:
+                            year_covid_engagement_values[5] += int(post.num_comm)
+                            year_covid_post_count[5] += 1
+                    else:
+                        if engagement_type == "score":
+                            year_non_covid_engagement_values[5] += int(post.score)
+                            year_non_covid_post_count[5] += 1
+                        else:
+                            year_non_covid_engagement_values[5] += int(post.num_comm)
+                            year_non_covid_post_count[5] += 1
+                elif month == "July":
+                    if post.relevant:
+                        if engagement_type == "score":
+                            year_covid_engagement_values[6] += int(post.score)
+                            year_covid_post_count[6] += 1
+                        else:
+                            year_covid_engagement_values[6] += int(post.num_comm)
+                            year_covid_post_count[6] += 1
+                    else:
+                        if engagement_type == "score":
+                            year_non_covid_engagement_values[6] += int(post.score)
+                            year_non_covid_post_count[6] += 1
+                        else:
+                            year_non_covid_engagement_values[6] += int(post.num_comm)
+                            year_non_covid_post_count[6] += 1
+                elif month == "August":
+                    if post.relevant:
+                        if engagement_type == "score":
+                            year_covid_engagement_values[7] += int(post.score)
+                            year_covid_post_count[7] += 1
+                        else:
+                            year_covid_engagement_values[7] += int(post.num_comm)
+                            year_covid_post_count[7] += 1
+                    else:
+                        if engagement_type == "score":
+                            year_non_covid_engagement_values[7] += int(post.score)
+                            year_non_covid_post_count[7] += 1
+                        else:
+                            year_non_covid_engagement_values[7] += int(post.num_comm)
+                            year_non_covid_post_count[7] += 1
+                elif month == "September":
+                    if post.relevant:
+                        if engagement_type == "score":
+                            year_covid_engagement_values[8] += int(post.score)
+                            year_covid_post_count[8] += 1
+                        else:
+                            year_covid_engagement_values[8] += int(post.num_comm)
+                            year_covid_post_count[8] += 1
+                    else:
+                        if engagement_type == "score":
+                            year_non_covid_engagement_values[8] += int(post.score)
+                            year_non_covid_post_count[8] += 1
+                        else:
+                            year_non_covid_engagement_values[8] += int(post.num_comm)
+                            year_non_covid_post_count[8] += 1
+                elif month == "October":
+                    if post.relevant:
+                        if engagement_type == "score":
+                            year_covid_engagement_values[9] += int(post.score)
+                            year_covid_post_count[9] += 1
+                        else:
+                            year_covid_engagement_values[9] += int(post.num_comm)
+                            year_covid_post_count[9] += 1
+                    else:
+                        if engagement_type == "score":
+                            year_non_covid_engagement_values[9] += int(post.score)
+                            year_non_covid_post_count[9] += 1
+                        else:
+                            year_non_covid_engagement_values[9] += int(post.num_comm)
+                            year_non_covid_post_count[9] += 1
+                elif month == "November":
+                    if post.relevant:
+                        if engagement_type == "score":
+                            year_covid_engagement_values[10] += int(post.score)
+                            year_covid_post_count[10] += 1
+                        else:
+                            year_covid_engagement_values[10] += int(post.num_comm)
+                            year_covid_post_count[10] += 1
+                    else:
+                        if engagement_type == "score":
+                            year_non_covid_engagement_values[10] += int(post.score)
+                            year_non_covid_post_count[10] += 1
+                        else:
+                            year_non_covid_engagement_values[10] += int(post.num_comm)
+                            year_non_covid_post_count[10] += 1
+                elif month == "December":
+                    if post.relevant:
+                        if engagement_type == "score":
+                            year_covid_engagement_values[11] += int(post.score)
+                            year_covid_post_count[11] += 1
+                        else:
+                            year_covid_engagement_values[11] += int(post.num_comm)
+                            year_covid_post_count[11] += 1
+                    else:
+                        if engagement_type == "score":
+                            year_non_covid_engagement_values[11] += int(post.score)
+                            year_non_covid_post_count[11] += 1
+                        else:
+                            year_non_covid_engagement_values[11] += int(post.num_comm)
+                            year_non_covid_post_count[11] += 1
+
+    year_covid_engagement = list()
+    year_non_covid_engagement = list()
+    fig = None
+
+    # Calculate the mean of each month
+    for i in range(12):
+        if year_covid_post_count[i] == 0 or year_non_covid_post_count[i] == 0:
+            if year_covid_post_count[i] == 0:
+                year_covid_engagement.append(0)
+                if sub_reddit_name == "Coronavirus":
+                    year_non_covid_engagement.append(0)
+                else:
+                    year_non_covid_engagement.append(year_non_covid_engagement_values[i] / year_non_covid_post_count[i])
+            else:
+                year_non_covid_engagement.append(0)
+                year_covid_engagement.append(year_covid_engagement_values[i] / year_covid_post_count[i])
+
+        else:
+            year_covid_engagement.append(year_covid_engagement_values[i] / year_covid_post_count[i])
+            if sub_reddit_name == "Coronavirus":
+                year_non_covid_engagement.append(0)
+            else:
+                year_non_covid_engagement.append(year_non_covid_engagement_values[i] / year_non_covid_post_count[i])
+
+    if engagement_type == "score":
+        fig = go.Figure(data=[
+                        go.Scatter(x=year, y=year_covid_engagement, name="Average Upvotes on Covid Related Posts"),
+                        go.Scatter(x=year, y=year_non_covid_engagement, name="Average Upvotes on Non-Covid Related Posts")])
+
+        fig.update_layout(
+            title="Monthly Average Score for Covid Related or Non-Covid Related Posts - " + sub_reddit_name + ", All Time Filters",
+            xaxis_title="Month",
+            yaxis_title="Score",
+            font=dict(size=20)
+        )
+    else:
+        fig = go.Figure(data=[
+            go.Scatter(x=year, y=year_covid_engagement, name="Average Number of Comments on Covid Related Posts"),
+            go.Scatter(x=year, y=year_non_covid_engagement, name="Average Number of Comments on Non-Covid Related Posts")])
+
+        fig.update_layout(
+            title="Monthly Average Number of Comments for Covid Related or Non-Covid Related Posts - " + sub_reddit_name + ", All Time Filters",
+            xaxis_title="Month",
+            yaxis_title="Comments",
+            font=dict(size=20)
+        )
+
+    fig.update_xaxes(showgrid=True, gridcolor="rgb(140,140,140)")
+    fig.update_yaxes(showgrid=True, gridcolor="rgb(140,140,140)")
+
+    fig.show()
+
+
 #   Gets user input for which subreddit to generate a graph on.
 
 def choose_subreddit():
@@ -577,7 +835,7 @@ def choose_subreddit():
     elif input1 == "2":
         sub_reddit_name = "News"
     elif input1 == "3":
-        sub_reddit_name = "News"
+        sub_reddit_name = "Science"
     else:
         sub_reddit_name = "WorldNews"
 
@@ -678,7 +936,24 @@ def main():
                 graph_time_series_engagement_daily(sub_reddit_name, science_dict, "comments")
             elif sub_reddit_name == "WorldNews":
                 graph_time_series_engagement_daily(sub_reddit_name, worldnews_dict, "comments")
-        # TODO: Do monthly average upvotes and comments for covid vs non-covid posts
+        if input1 == "3":
+            if sub_reddit_name == "Coronavirus":
+                graph_time_series_engagement_monthly(sub_reddit_name, coronavirus_dict, "score")
+            elif sub_reddit_name == "News":
+                graph_time_series_engagement_monthly(sub_reddit_name, news_dict, "score")
+            elif sub_reddit_name == "Science":
+                graph_time_series_engagement_monthly(sub_reddit_name, science_dict, "score")
+            elif sub_reddit_name == "WorldNews":
+                graph_time_series_engagement_monthly(sub_reddit_name, worldnews_dict, "score")
+        if input1 == "4":
+            if sub_reddit_name == "Coronavirus":
+                graph_time_series_engagement_monthly(sub_reddit_name, coronavirus_dict, "comments")
+            elif sub_reddit_name == "News":
+                graph_time_series_engagement_monthly(sub_reddit_name, news_dict, "comments")
+            elif sub_reddit_name == "Science":
+                graph_time_series_engagement_monthly(sub_reddit_name, science_dict, "comments")
+            elif sub_reddit_name == "WorldNews":
+                graph_time_series_engagement_monthly(sub_reddit_name, worldnews_dict, "comments")
 
     # UNCOMMENT THIS CODE TO REWRITE THE DATA_DICTIONARY.TXT FILE AGAIN
     # file = open("data/data_dictionary.txt", mode="w", encoding="utf8")
