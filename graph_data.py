@@ -79,7 +79,7 @@ def parse_data(sub_reddit_name, sub_reddit_dict):
                         re.search("covid", post.title, re.IGNORECASE) or \
                         re.search("sars-cov-2", post.title, re.IGNORECASE) or \
                         re.search("pandemic", post.title, re.IGNORECASE) or \
-                        re.search("virus", post.title, re.IGNORECASE):
+                        re.search("corona", post.title, re.IGNORECASE):
                     post.relevant = True
 
                 # If the post doesn't have text content.  Most likely an image.
@@ -91,7 +91,7 @@ def parse_data(sub_reddit_name, sub_reddit_dict):
                             re.search("covid", post.content, re.IGNORECASE) or \
                             re.search("sars-cov-2", post.content, re.IGNORECASE) or \
                             re.search("pandemic", post.content, re.IGNORECASE) or \
-                            re.search("virus", post.content, re.IGNORECASE):
+                            re.search("corona", post.content, re.IGNORECASE):
                         post.relevant = True
 
                 if entry[5] != "None":
@@ -584,6 +584,10 @@ def graph_time_series_engagement_monthly(sub_reddit_name, sub_reddit_dict, engag
                 date_data = post.created.strip().split(" ")[0].split("-")
                 date = datetime.datetime(int(date_data[0]), int(date_data[1]), int(date_data[2]))
                 month = date.strftime("%B").strip()
+
+                if post.relevant:
+                    if month == "November" or month == "December":
+                        print(str(date_data) + " --> " + str(post.score) + " --> " + post.title)
 
                 if month == "January":
                     if post.relevant:
